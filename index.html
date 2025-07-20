@@ -23,16 +23,36 @@
         }
     </style>
     <script>
-        // Disable context menu on right-click
-        document.addEventListener('contextmenu', function (event) {
-            event.preventDefault();
-        }, false);
+        // Disable right-click
+      document.addEventListener('contextmenu', e => e.preventDefault());
 
-        // Prevent image dragging
-        document.getElementById('prevent-download').addEventListener('dragstart', function (event) {
-            event.preventDefault();
-        }, false);
+  // Disable copy/cut/paste
+      ['copy', 'cut', 'paste'].forEach(evt =>
+        document.addEventListener(evt, e => e.preventDefault())
+      );
 
+  // Disable key combinations (Ctrl+P, Ctrl+S, PrintScreen)
+      document.addEventListener('keydown', function(e) {
+        if (
+          (e.ctrlKey && ['p', 's', 'u', 'c'].includes(e.key.toLowerCase())) || // Ctrl+P, Ctrl+S
+          e.key === 'PrintScreen'
+        ) {
+          e.preventDefault();
+          alert('This action is not allowed.');
+         return false;
+        }
+      });
+
+  // Attempt to detect PrintScreen (not reliable)
+      window.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen') {
+          document.body.innerHTML = '';
+          alert("Screenshot blocked!");
+        }
+      });
+
+  // Drag prevention
+      document.addEventListener('dragstart', e => e.preventDefault());
     </script>
 </head>
 
