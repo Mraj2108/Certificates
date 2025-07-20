@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #fff;
+            user-select: none;
             text-align: center;
         }
 
@@ -21,43 +25,78 @@
             user-select: none;
             /* Standard */
         }
+
+        .viewer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+            /* disables interaction */
+        }
+
+        .watermark {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.1;
+            font-size: 5em;
+            color: red;
+            z-index: 9999;
+            transform: rotate(-30deg);
+            user-select: none;
+        }
     </style>
     <script>
         // Disable right-click
-      document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('contextmenu', e => e.preventDefault());
 
-  // Disable copy/cut/paste
-      ['copy', 'cut', 'paste'].forEach(evt =>
-        document.addEventListener(evt, e => e.preventDefault())
-      );
+        // Disable copy/cut/paste
+        ['copy', 'cut', 'paste'].forEach(evt =>
+            document.addEventListener(evt, e => e.preventDefault())
+        );
 
-  // Disable key combinations (Ctrl+P, Ctrl+S, PrintScreen)
-      document.addEventListener('keydown', function(e) {
-        if (
-          (e.ctrlKey && ['p', 's', 'u', 'c'].includes(e.key.toLowerCase())) || // Ctrl+P, Ctrl+S
-          e.key === 'PrintScreen'
-        ) {
-          e.preventDefault();
-          alert('This action is not allowed.');
-         return false;
-        }
-      });
+        // Disable key combinations (Ctrl+P, Ctrl+S, PrintScreen)
+        document.addEventListener('keydown', function (e) {
+            if (
+                (e.ctrlKey && ['p', 's', 'u', 'c'].includes(e.key.toLowerCase())) || // Ctrl+P, Ctrl+S
+                e.key === 'PrintScreen'
+            ) {
+                e.preventDefault();
+                alert('This action is not allowed.');
+                return false;
+            }
+        });
 
-  // Attempt to detect PrintScreen (not reliable)
-      window.addEventListener('keyup', function(e) {
-        if (e.key === 'PrintScreen') {
-          document.body.innerHTML = '';
-          alert("Screenshot blocked!");
-        }
-      });
+        // Attempt to detect PrintScreen (not reliable)
+        window.addEventListener('keyup', function (e) {
+            if (e.key === 'PrintScreen') {
+                document.body.innerHTML = '';
+                alert("Screenshot blocked!");
+            }
+        });
 
-  // Drag prevention
-      document.addEventListener('dragstart', e => e.preventDefault());
+        // Drag prevention
+        document.addEventListener('dragstart', e => e.preventDefault());
     </script>
 </head>
 
 <body>
-    
+
+    <div class="viewer" oncontextmenu="return false">
+        <iframe src="Images/Canva Essentials Certificate.jpg" alt="Canva Essentials Certificate"></iframe>
+        <div class="watermark">Mritunjay's Document</div>
+    </div>
+
     <img src="Images/Canva Essentials Certificate.jpg" alt="Canva Essentials Certificate">
     <img src="Images/ChatGPT for Beginners by GL_58688651_1.jpg" alt="ChatGPT for Beginners by GL_58688651_1">
     <img src="Images/Mritunjay_Raj_2914384_TCS_58688870_1.jpg" alt="iON_Career_Edge-Young Professional_TCS_58688870_1">
